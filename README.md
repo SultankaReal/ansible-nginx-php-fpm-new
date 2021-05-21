@@ -6,7 +6,7 @@
 
 ## nginx.conf - конфигурационный файл nginx 
 
-## изменен DocumentRoot в nginx.conf и в main.yml
+## Изменен DocumentRoot в nginx.conf и в main.yml
 
 ## handler создан в /etc/ansible/playbooks (/playbooks/nginx_php_fpm.yml в проекте) для перечитывания конфигурации nginx
 
