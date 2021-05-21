@@ -1,0 +1,11 @@
+---
+- hosts: test
+  gather_facts: no
+  become: yes
+  roles:
+    - nginx-php-fpm
+  handlers:
+  - name: Restart nginx
+    service:
+      name: nginx
+      state: restarted

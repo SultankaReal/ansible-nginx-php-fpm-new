@@ -1,0 +1,51 @@
+---
+- name: install nginx
+  yum:
+    name: nginx
+    state: installed
+ 
+- name: start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: creating the directory
+  file: 
+    path: /usr/share/nginx/html/
+    state: directory
+
+- name: create a file index_php
+  copy: 
+    content: "<?php phpinfo();?>"
+    dest: /usr/share/nginx/html/index.php
+
+- name: copying nginx_conf to remote_host
+  copy: 
+    src: /nginx.conf
+    dest: /etc/nginx/nginx.conf
+    remote_src: yes 
+
+- name: install php-fpm
+  yum: 
+    name: php-fpm
+    state: installed
+
+- name: start php-fpm
+  service: 
+    name: php-fpm
+    state: started
+    enabled: yes
+  
+- name: Create document root
+  file:
+    path: /opt/nginx/ansible/
+    state: directory
+
+- name: copy from usr_share_nginx_html to opt_nginx_ansible
+  copy: 
+    src: /usr/share/nginx/html/
+    dest: /opt/nginx/ansible/
+    remote_src: yes
+  notify: Restart nginx
+
